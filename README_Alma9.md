@@ -285,8 +285,6 @@ The following logs may be helpful:
 
 Check the Nginx process logs by typing:` journalctl -u nginx`
 
-Check the Nginx access logs by typing:` less /var/log/nginx/access.log`
-
 Check the Nginx error logs by typing:` less /var/log/nginx/error.log`
 
 Check the Gunicorn application logs by typing:` journalctl -u gunicorn`
@@ -302,14 +300,17 @@ tail -F /var/log/nginx/error.log
 ##### For (13: Permission denied), "GET /static/css/style.css HTTP/1.1":
 Ensure that Nginx and Gunicorn have the necessary permissions to access your project files. Adjust permissions cautiously:
 ```bash
-chmod o+rx /path_to_projectdir/ip_aggregator
+chmod o+x /path_to_projectdir/ip_aggregator
 ```
 ```bash
 chmod -R o+rx /path_to_projectdir/ip_aggregator/static
 ```
 ```bash
-sudo chown -R www-data:www-data /path_to_projectdir/ip_aggregator/static
+sudo chown -R user:user /path_to_projectdir/ip_aggregator/static
 ```
+
+Notes:
+1. Make sure that `user:user` are correct according to your setup.
 
 ## Usage
 

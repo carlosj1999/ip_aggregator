@@ -1,53 +1,4 @@
 # aggregator/utils.py
-"""
-from ipaddress import ip_network, ip_address, summarize_address_range
-import ipaddress
-
-def aggregate_ip_addresses(ip_addresses, output_format, why_blocked=None, asn_code=None):
-    # Split the input into lines and remove any empty lines
-    ip_list = [line.strip() for line in ip_addresses.split('\n') if line.strip()]
-    
-    # Convert IP addresses and ranges to networks
-    networks = []
-    for ip in ip_list:
-        try:
-            if '-' in ip:
-                start, end = ip.split('-')
-                networks.extend(summarize_address_range(ip_address(start.strip()), ip_address(end.strip())))
-            elif '/' in ip:
-                networks.append(ip_network(ip, strict=False))
-            else:
-                networks.append(ip_network(ip + '/32', strict=False))
-        except ValueError:
-            # Skip invalid IP addresses
-            continue
-    
-    # Sort networks to ensure consistent output
-    networks.sort(key=lambda x: x.network_address)
-    
-    # Format the output based on the selected format
-    if output_format == 'cidr':
-        result = [str(net) for net in networks]
-    elif output_format == 'mask':
-        result = [f"{net.network_address}/{net.netmask}" for net in networks]
-    elif output_format == 'range':
-        result = [f"{net.network_address}-{net.broadcast_address}" for net in networks]
-    elif output_format == 'b-n':
-        result = [f"{net.network_address}-{net.broadcast_address}" for net in networks]
-    elif output_format == 'hta':
-        result = [f"deny from {net.network_address}/{net.netmask}" for net in networks]
-    elif output_format == 'zbb':
-        result = [f"{net.network_address}/{net.prefixlen}" for net in networks]
-    
-    # Add why_blocked and asn_code if provided
-    if why_blocked:
-        result = [f"{line} # {why_blocked}" for line in result]
-    if asn_code:
-        result = [f"{line} # AS{asn_code}" for line in result]
-    
-    return '\n'.join(result)"""
-    
-    
 
 from ipaddress import ip_network, ip_address, summarize_address_range, collapse_addresses
 import re
@@ -67,6 +18,8 @@ IP4_ALIASES = {
     "B": [ip_network("172.16.0.0/12")],
     "C": [ip_network("192.168.0.0/16")],
 }
+
+
 
 def clean_input(ip_addresses):
     # Replace commas with newlines
@@ -138,6 +91,38 @@ def aggregate_ip_addresses(ip_addresses, output_format='cidr', why_blocked=None,
         result = [f"{line} # AS{asn_code}" for line in result]
 
     return '\n'.join(result)
+
+
+
+
+def aggregate_ips(ip_ranges):
+    """
+    Process and aggregate the provided IP address ranges.
+    """
+    if not ip_ranges:
+        raise ValueError("No IP ranges provided")
+
+    # Placeholder logic (replace with actual IP aggregation)
+    ranges = ip_ranges.splitlines()
+    aggregated_result = "\n".join(f"Aggregated: {r.strip()}" for r in ranges)
+    return aggregated_result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Example usage
 if __name__ == "__main__":

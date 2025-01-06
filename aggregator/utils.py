@@ -93,19 +93,30 @@ def aggregate_ip_addresses(ip_addresses, output_format='cidr', why_blocked=None,
     return '\n'.join(result)
 
 
-
-
-def aggregate_ips(ip_ranges):
+def aggregate_ips(ip_ranges, output_format):
     """
-    Process and aggregate the provided IP address ranges.
+    Aggregate IP addresses and return the result in the specified output format.
     """
     if not ip_ranges:
         raise ValueError("No IP ranges provided")
 
-    # Placeholder logic (replace with actual IP aggregation)
     ranges = ip_ranges.splitlines()
-    aggregated_result = "\n".join(f"Aggregated: {r.strip()}" for r in ranges)
-    return aggregated_result
+
+    # Placeholder logic for each format
+    if output_format == "cidr":
+        return [{"ip": r.strip(), "format": "CIDR"} for r in ranges]
+    elif output_format == "mask":
+        return [{"ip": r.strip(), "format": "Mask"} for r in ranges]
+    elif output_format == "range":
+        return [{"ip": r.strip(), "format": "Range"} for r in ranges]
+    elif output_format == "b-n":
+        return [{"ip": r.strip(), "format": "B-N"} for r in ranges]
+    elif output_format == "hta":
+        return [{"ip": r.strip(), "format": "HTA"} for r in ranges]
+    elif output_format == "zbb":
+        return [{"ip": r.strip(), "format": "ZBB"} for r in ranges]
+    else:
+        raise ValueError("Invalid output format!")
 
 
 

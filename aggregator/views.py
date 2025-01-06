@@ -26,10 +26,11 @@ def index(request):
     return render(request, 'aggregator/index.html', {'form': form, 'result': result})
 
 
-
 from django.http import JsonResponse
-from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from .utils import aggregate_ips  # Import your utility function
 
+@csrf_exempt  # Disable CSRF for testing
 def ip_aggregator_api(request):
     if request.method == "POST":
         ip_addresses = request.POST.get("ip_addresses")
@@ -37,10 +38,13 @@ def ip_aggregator_api(request):
 
         if not ip_addresses:
             return JsonResponse({"error": "IP Address ranges are required!"}, status=400)
+        
+        if output_format not in ['cidr', 'mask', 'range', 'b-n', 'hta', 'zbb']:
+            return JsonResponse({"error": "Invalid output format!"}, status=400)
 
         try:
-            # Process IP ranges
-            aggregated_data = aggregate_ips(ip_addresses)
+            # Use utility function to process IP ranges
+            aggregated_data = aggregate_ips(ip_addresses, output_format)
             return JsonResponse({
                 "result": aggregated_data,
                 "output_format": output_format,
@@ -48,4 +52,5 @@ def ip_aggregator_api(request):
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
+    # For invalid request methods
     return JsonResponse({"error": "Invalid request method. Use POST."}, status=405)

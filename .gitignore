@@ -14,4 +14,8 @@ env/
 
 # Ignore system files
 .DS_Store
+<<<<<<< HEAD
 Thumbs.db
+=======
+Thumbs.db
+>>>>>>> 30c670a64ae0f212f4965e0cc5dcb61c9de274c1

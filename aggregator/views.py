@@ -54,3 +54,17 @@ def ip_aggregator_api(request):
 
     # For invalid request methods
     return JsonResponse({"error": "Invalid request method. Use POST."}, status=405)
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
+def login_view(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return render(request, 'register.html')
+
+def about(request):
+    return render(request, 'about.html')

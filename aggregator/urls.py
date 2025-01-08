@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name = 'index'),
-    path('api/aggregate/', views.ip_aggregator_api, name='ip_aggregator_api'),
-    #path('', views.aggregator, name = 'aggregate'),
+    path('', views.home, name='home'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register, name='register'),
+    path('about/', views.about, name='about'),
 ]

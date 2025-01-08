@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - IP Aggregator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    {% include "header.html" %}
+    <main class="flex-grow-1 d-flex align-items-center">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="text-primary">About IP Aggregator</h1>
+                <p class="text-muted mt-3">IP Aggregator is a powerful tool for managing and formatting IP ranges. Our mission is to simplify network management for professionals and enthusiasts alike.</p>
+            </div>
+        </div>
+    </main>
+    {% include "footer.html" %}
+</body>
+
+</html>
